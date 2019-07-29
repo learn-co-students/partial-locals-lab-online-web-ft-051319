@@ -1,4 +1,10 @@
 class StudentsController < ApplicationController
+  def index
+    @students = Student.all
+    @search = params[:search]
+    @student_search_results = Student.search(params[:search])
+  end
+
   def new
     @student = Student.new
   end
@@ -20,9 +26,7 @@ class StudentsController < ApplicationController
     @student = Student.find(params[:id])
   end
 
-  def index
-    @students = Student.all
-  end
+  private
 
   def student_params
     params.require(:student).permit(:name, :birthday, :hometown)
